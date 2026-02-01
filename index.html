@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        overflow: hidden;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        width: 90%;
+        max-width: 350px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    h1 {
+        color: #ff4d6d;
+        font-size: 24px;
+    }
+
+    button {
+        padding: 12px 25px;
+        margin: 15px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    #noBtn {
+        background: #ddd;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: shake 0.2s infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(-50%) translateX(0); }
+        25% { transform: translateX(-50%) translateX(-3px); }
+        50% { transform: translateX(-50%) translateX(3px); }
+        75% { transform: translateX(-50%) translateX(-3px); }
+        100% { transform: translateX(-50%) translateX(0); }
+    }
+
+    .celebrate {
+        display: none;
+        font-size: 28px;
+        color: white;
+        text-align: center;
+        animation: pop 1s ease-in-out infinite;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 😅</button>
+</div>
+
+<div class="celebrate" id="celebrate">
+    🎉 YAAAHHH!!! 🎉 <br> ❤️❤️❤️
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+
+    function runForever(e) {
+        e.preventDefault();
+
+        const padding = 20;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    // Desktop + Mobile
+    noBtn.addEventListener("mouseover", runForever);
+    noBtn.addEventListener("touchstart", runForever);
+
+    document.getElementById("yesBtn").addEventListener("click", () => {
+        document.getElementById("card").style.display = "none";
+        document.getElementById("celebrate").style.display = "block";
+        createConfetti();
+    });
+
+    function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(confetti);
+        }
+    }
+</script>
+
+</body>
+</html>
